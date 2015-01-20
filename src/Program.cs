@@ -80,16 +80,12 @@ namespace dynaTrace.SCOM.EventSender
 
         static void Main(string[] args)
         {
-            Console.WriteLine("dynaTrace.SCOM.EventSender.Program starting.");
-
-            
             // parse our parameters
             ParseArguments(args);
 
             try
             {
                 // first we get connected to SCOM server. If we have username/password supplied we use a mgntgroupconnectionsetting object to pass credentials
-                // http://msdn.microsoft.com/en-us/library/bb437619.aspx
                 ManagementGroupConnectionSettings mgSettings = new ManagementGroupConnectionSettings(serverName);
                 mgSettings.CacheMode = CacheMode.None;
                 if (userName != null && userName.Length > 0)
@@ -101,11 +97,8 @@ namespace dynaTrace.SCOM.EventSender
                         mgSettings.Password.AppendChar(c);
                     mgSettings.Domain = domainName;
                 }
-                Console.WriteLine("Connecting to SCOM server: '{0}' as user {1}\\{2}", serverName, domainName, userName);
-                //  Changed this section to connect to managementgroup only with supplied credentials - ELazar 03/06/14
-                //ManagementGroup mg = new ManagementGroup(serverName);
-                //ManagementGroup managementGroup = ManagementGroup.Connect(mgSettings);
-                ManagementGroup mg = ManagementGroup.Connect(mgSettings);
+
+                ManagementGroup mg = new ManagementGroup(mgSettings);
 
                 if (args[0] == "/i") // /i==install
                 {
@@ -123,9 +116,7 @@ namespace dynaTrace.SCOM.EventSender
                 if (args[0] == "/e") // /e==send event
                 {
                     // query for the dynaTrace object
-                    //  Removed hardcoded version number and changed GetManagementPack to GetManagementPacks()[0] - ELazar 02/26/14
-                    //ManagementPack mgmtPack = mg.GetManagementPack("dynaTrace", null, new System.Version("1.0.0.0"));
-                    ManagementPack mgmtPack = mg.GetManagementPacks("dynaTrace")[0];
+                    ManagementPack mgmtPack = mg.GetManagementPack("dynaTrace", null, new System.Version("1.0.0.0"));
                     ManagementPackClass mgmtPackClass = mgmtPack.GetClass("dynaTrace.Server");
                     MonitoringClass monClass = mg.GetMonitoringClass("dynaTrace.Server", mgmtPack);
                     System.Collections.ObjectModel.ReadOnlyCollection<MonitoringObject> monObjects = mg.GetMonitoringObjects(monClass);

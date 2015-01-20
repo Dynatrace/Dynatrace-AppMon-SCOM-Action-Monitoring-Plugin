@@ -52,11 +52,13 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.EnterpriseManagement.OperationsManager">
-      <HintPath>References\Microsoft.EnterpriseManagement.OperationsManager.dll</HintPath>
+    <Reference Include="Microsoft.EnterpriseManagement.OperationsManager, Version=6.0.4900.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\temp\Microsoft.EnterpriseManagement.OperationsManager.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.EnterpriseManagement.OperationsManager.Common">
-      <HintPath>References\Microsoft.EnterpriseManagement.OperationsManager.Common.dll</HintPath>
+    <Reference Include="Microsoft.EnterpriseManagement.OperationsManager.Common, Version=6.0.4900.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\temp\Microsoft.EnterpriseManagement.OperationsManager.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
